@@ -1,0 +1,5 @@
+elastic-apm[flask]
+
+flask
+requests
+
