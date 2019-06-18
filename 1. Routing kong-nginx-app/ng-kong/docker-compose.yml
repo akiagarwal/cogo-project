@@ -1,0 +1,44 @@
+version: '3'
+
+volumes:
+  kong_db_test:
+    driver: local
+
+services:
+  kong-postgres:
+    image: postgres:9.5-alpine
+    volumes:
+      - kong_db_test:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: kong
+      POSTGRES_USER: kong
+      POSTGRES_PASSWORD: e?~&yT0?ts397$wb.4;+
+    
+  
+  kong:
+    build: ./kong
+    restart: on-failure
+    hostname: kong1
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: kong-postgres
+      KONG_PG_PORT: 5432
+      KONG_PG_DATABASE: kong
+      KONG_PG_USER: kong
+      KONG_PG_PASSWORD: e?~&yT0?ts397$wb.4;+
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ERROR_LOG: /dev/stderr 
+      KONG_LOG_LEVEL: info
+      #KONG_DNS_STALE_TTL: 1200
+    ulimits:
+      nofile:
+        soft: "65536"
+        hard: "65536"
+    ports:
+      - 9002:8000
+      - 9505:8005
+    depends_on:
+      - kong-postgres
+      

@@ -1,0 +1,58 @@
+worker_processes ${{NGINX_WORKER_PROCESSES}}; # can be set by kong.conf
+daemon ${{NGINX_DAEMON}};                     # can be set by kong.conf
+
+pid pids/nginx.pid;                      # this setting is mandatory
+error_log logs/error.log ${{LOG_LEVEL}}; # can be set by kong.conf
+#access_log logs/access.log ${{LOG_LEVEL}}; # can be set by kong.conf
+
+events {
+    use epoll; # custom setting
+    multi_accept on;
+}
+
+http {
+real_ip_recursive on;
+log_format  custom '$hostname '
+		'$request_id '
+			'$remote_addr - $remote_user [$time_local] '
+                         	     '"$request" $status $body_bytes_sent '
+                      		     '"$http_referer" "$http_user_agent" '
+                     		     '"$http_x_forwarded_for" '
+					 '$host '
+					'$remote_addr '
+					'$proxy_add_x_forwarded_for '
+					'$realpath_root '
+					'$request_uri '
+					'$realip_remote_addr '
+					'$http_x_real_ip ';
+
+
+error_log logs/error.log ${{LOG_LEVEL}};
+  access_log logs/access.log custom;
+access_log /dev/stdout custom;
+charset UTF-8;
+#ssl_session_cache    shared:SSL:10m;
+#keepalive_requests 200;		
+#keepalive_timeout 120s;
+    # include default Kong Nginx config
+    #include 'nginx-kong.conf';
+     server {
+server_name kong;
+ #error_log /dev/stdout ;
+#access_log on;
+        listen 8005;
+	location / {
+		real_ip_recursive on;
+		proxy_pass http://172.23.0.1:1200 ;
+proxy_set_header Host            $host;
+proxy_set_header Request-Id $request_id ;
+    proxy_set_header X-Forwarded-For $hostname;
+
+}
+	location /users {
+		proxy_pass http://172.17.0.1:3005/ ;
+proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $hostname;
+}
+}
+}
