@@ -7,3 +7,5 @@ Routing, Logging &amp; Distributed Tracing
 4) docker inspect <container_id> -> to get the details of any running container
 5) docker ps -> to get all the running containers
 6) docker images -> to get all the created docker images
+7) docker kill <container_id> -> to kill any running container
+8) sudo fuser -k <port_no>/tcp -> to kill the process running on the specified port.
