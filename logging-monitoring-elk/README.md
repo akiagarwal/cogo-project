@@ -1,1 +1,1 @@
-### Running the setup - `docker-compose up --build`
+* Running the setup - `docker-compose up --build`
