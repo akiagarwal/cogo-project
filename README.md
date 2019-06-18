@@ -1,5 +1,9 @@
 # cogo-project
 Routing, Logging &amp; Distributed Tracing
+# Prerequisites
+1) Ubuntu operating system and its basic knowledge.
+2) docker installed on the system.
+
 # Some basic commands 
 1) docker build -t <name> . -> to build the docker container.
 2) docker run -p <host_port>:<container_port> <name> -> to run the docker container
