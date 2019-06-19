@@ -28,14 +28,20 @@ Now open your jaeger UI running on `localhost:16686`. Here you will see all your
 
 ## Some screenshots of the jaeger UI
 
-
-![jaeger1](images/1.png)
-![jaeger2](images/2.png)
-![jaeger3](images/3.png)
-![jaeger4](images/4.png)
 ![jaeger5](images/5.png)
+---
+![jaeger3](images/3.png)
+---
+![jaeger4](images/4.png)
+---
+![jaeger1](images/1.png)
+---
+![jaeger2](images/2.png)
+---
 ![jaeger6](images/6.png)
+---
 ![jaeger7](images/7.png)
-
+---
+![jaeger8](images/8.png)
 ## Note
 Till now jaeger is not compatible with elastic search version 7.x . So make sure to use es version 5 or 6.
