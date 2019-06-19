@@ -1,6 +1,7 @@
 ## Folder description
 1) nginx-open folder contains the code for a nginx server with opentracing enabled and using jaeger as the client.
 2) jaeger-sinatara-C folder contains 3 ruby apps configured with jaeger opentracing.
+3) docker-elk-a-jgr-C folder contains the full setup for sending jaeger data to elasticsearch. Refer to the same folder for further details.
 
 ## Running the setup
 
