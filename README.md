@@ -18,3 +18,5 @@ Routing, Logging &amp; Distributed Tracing
 1) `Routing kong-nginx app` : It contains code for the implementation of simple routing all the way through a kong server to the different nginx servers and then to the running services. 
 2) `logging-monitoring-elk` : It contains the full implementation of the logging of the logs of different containers on elasticsearch i.e the complete elk stack. It also contains apm for service monitoring.
 3) `jaeger-tracing` : Contains implementation of distributed tracing using jaeger client. Has codes of the ruby apps and also the nginx servers . Also contains implementation for jaeger data sent to elasticsearch.
+4) `zipkin-tracing` : Contains implementation of distributed tracing using zipkin client. Has codes of the ruby apps and also the nginx servers .
+
