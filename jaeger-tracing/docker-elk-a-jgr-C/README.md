@@ -1,5 +1,7 @@
-# Docker Monitoring with the ELK Stack
+# Docker Monitoring with the ELK Stack for jaeger data
+This is the implementation of the jaeger client which is configured to send its generated data to elastic search which can then be visulaized on kibana.
 
-This repo explains how to build Docker containers and then explores how to use Filebeat to send logs to Logstash before storing them in Elasticsearch and analyzing them with Kibana.
+## Running the setup 
 
-The complete tutorial can be found here: https://aboullaite.me/docker-monitoring-with-the-elk-stack
+Simply run `docker-compose up --build` 
+This will get your full elk stack and jaeger client running. Now run whaterver apps or nginx servers that are configured for jaeger opentracing and you will be able to see the data on kibana under the discover section.
