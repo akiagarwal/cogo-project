@@ -13,6 +13,9 @@ Start zipkin by running ```sudo docker run -d -p 9411:9411 openzipkin/zipkin```
 Run the 2 ruby apps by building and running each of the 2 containers in `hello` and `hello3` folder. Make sure to put the correct host of the running zipkin client in the code of the 2 apps in:
 ```json_api_host: 'http://<zipkin-client-host>:9411'```
 
+#### Note 
+The 2 ruby apps have been made dependent on each other for the sake of demonstration. In this case hello is calling hello3.
+
 ### Step 3
 Now build and run the nginx container in the nginx-open folder. It contains a `zipkin-config` file and make sure to put the host of the running zipkin client in here as well in :
 ```""collector_host": "<zipkin-client-host>"```
