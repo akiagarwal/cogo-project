@@ -1,0 +1,13 @@
+{
+  "service_name": "nginx",
+  "diabled": false,
+  "reporter": {
+    "logSpans": true,
+    "localAgentHostPort": "172.28.0.1:6831"
+  },
+  "sampler": {
+    "type": "const",
+    "param": "1"
+  }
+}
+

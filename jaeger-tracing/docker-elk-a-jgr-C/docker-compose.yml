@@ -1,0 +1,102 @@
+      version: '2.2'
+
+      services:
+        elasticsearch:
+          build: elasticsearch/
+          #image: docker.elastic.co/elasticsearch/elasticsearch:7.1.0
+          ports:
+            - "9200:9200"
+            - "9300:9300"
+          environment:
+            ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+            LOGSPOUT: ignore
+          user: esuser
+          networks:
+            - docker_elk2
+          volumes:
+            - $PWD/data/es/:/home/esuser/data
+          ulimits:
+            nofile:
+              soft: 65536
+              hard: 65536 
+        logstash:
+          build: logstash/
+          ports:
+            - "5010:5010"
+          user: lsuser
+          networks:
+            - docker_elk2
+          depends_on:
+            - elasticsearch
+          environment:
+            ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+            LOGSPOUT: ignore
+        kibana:
+          build: kibana/
+          ports:
+            - "5601:5601"
+          user: kbuser
+          networks:
+            - docker_elk2
+          depends_on:
+            - elasticsearch
+          environment:
+            - LOGSPOUT=ignore
+        
+        logspout:
+          image: gliderlabs/logspout:v3
+          restart: always
+          links:
+            - logstash
+          volumes:
+            - '/var/run/docker.sock:/tmp/docker.sock'
+          command: 'udp://logstash:5010'
+          networks:
+            - docker_elk2
+
+        apm-server:
+          image: docker.elastic.co/apm/apm-server:7.1.0
+          ports:
+            - 8200:8200
+          environment:
+            - output.elasticsearch.hosts=['http://elasticsearch:9200']
+            - apm-server.host="0.0.0.0:8200"
+            - apm-server.secret_token="xxVpmQB2HMzCL9PgBHVrnxjNXXw5J7bd79DFm6sjBJR5HPXDhcF8MSb3vv4bpg44"
+            - setup.kibana.host="kibana:5601"
+            - setup.template.enabled=true
+            - logging.to_files=false
+          depends_on:
+            - elasticsearch
+            - kibana
+          networks:
+            - docker_elk2
+        
+        jaeger-agent:
+          image: jaegertracing/all-in-one:1.7
+          ports:
+            - "6831:6831/udp"
+            - "6832:6832/udp"
+            - "5778:5778"
+            - "14269:14269"
+            - "14268:14268"
+            - "14267:14267"
+            - "9411:9411"
+            - "16686:16686"
+          networks:
+            - docker_elk2
+          restart: on-failure
+          environment:
+            - SPAN_STORAGE_TYPE=elasticsearch
+          command: [
+            "--es.server-urls=http://elasticsearch:9200",
+            "--es.num-shards=1",
+            "--es.num-replicas=0",
+            "--log-level=error"
+          ]
+          depends_on:
+            - elasticsearch
+
+
+      networks:
+        docker_elk2:
+          driver: bridge

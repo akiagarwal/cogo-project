@@ -1,0 +1,9 @@
+cluster.name: docker-morocco-example
+node.name: docker-node-1
+path.data: /home/esuser/data
+network.host: "0.0.0.0"
+#cluster.initial_master_nodes: node-1
+#discovery.zen.ping.unicast.hosts: 1
+#discovery.type: single-node
+#cluster.initial_master_nodes: node-1
+#discovery.seed_hosts: node-1
