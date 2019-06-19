@@ -13,3 +13,8 @@ Routing, Logging &amp; Distributed Tracing
 6) `docker images` -> to get all the created docker images
 7) `docker kill <container_id>` -> to kill any running container
 8) `sudo fuser -k <port_no>/tcp` -> to kill the process running on the specified port.
+
+# Folder description 
+1) `Routing kong-nginx app` : It contains code for the implementation of simple routing all the way through a kong server to the different nginx servers and then to the running services. 
+2) `logging-monitoring-elk` : It contains the full implementation of the logging of the logs of different containers on elasticsearch i.e the complete elk stack. It also contains apm for service monitoring.
+3) `jaeger-tracing` : Contains implementation of distributed tracing using jaeger client. Has codes of the ruby apps and also the nginx servers . Also contains implementation for jaeger data sent to elasticsearch.
