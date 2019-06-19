@@ -37,7 +37,5 @@ Now open your jaeger UI running on `localhost:16686`. Here you will see all your
 ![jaeger6](images/6.png)
 ![jaeger7](images/7.png)
 
-
-`
 ## Note
 Till now jaeger is not compatible with elastic search version 7.x . So make sure to use es version 5 or 6.
