@@ -46,14 +46,7 @@ Now open your jaeger UI running on `localhost:16686`. Here you will see all your
 ![jaeger8](images/8.png)
 ---
 
-## Some screenshots of the jaeger data sent on es
 
-![jaeger10](images/10.png)
----
-![jaeger9](images/9.png)
----
-![jaeger11](images/11.png)
----
 
 
 ## Note
